@@ -1,0 +1,8 @@
+.stack-work/
+james-xmonad.cabal
+*~xmonad-x86_64-linux
+xmonad.errors
+*.hi
+*.o
+prompt-history
+xmonad-x86_64-linux
