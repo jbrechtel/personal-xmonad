@@ -32,11 +32,11 @@ import           XMonad.Prompt.XMonad (xmonadPrompt)
 import qualified XMonad.Prompt as Prompt
 import           System.Exit (exitWith, ExitCode(ExitSuccess))
 
-myXmonadBar Laptop = "dzen2 -xs 1 -dock -fn " <> myFont <> " -x '0' -y '-1' -w '920' -ta 'l' -fg '#FFFFFF' -bg '#000000'"
-myXmonadBar Desktop = "dzen2 -xs 1 -dock -fn " <> myFont <> " -x '0' -y '-1' -w '820' -ta 'l' -fg '#FFFFFF' -bg '#000000'"
+myXmonadBar Laptop = "nezd -xs 1 -dock -fn " <> myFont <> " -x '0' -y '-1' -w '920' -ta 'l' -fg '#FFFFFF' -bg '#000000'"
+myXmonadBar Desktop = "nezd -xs 1 -dock -fn " <> myFont <> " -x '0' -y '-1' -w '820' -ta 'l' -fg '#FFFFFF' -bg '#000000'"
 
-myStatusBar Laptop = "conky -c ~/.conkyrc | dzen2 -xs 1 -dock -fn " <> myFont <> " -y '-1' -w '1000' -x -1000 -ta 'r' -fg '#FFFFFF' -bg '#000000'"
-myStatusBar Desktop = "conky -c ~/.conkyrc | dzen2 -xs 1 -dock -fn " <> myFont <> " -y '-1' -w '1740' -x -1740 -ta 'r' -fg '#FFFFFF' -bg '#000000'"
+myStatusBar Laptop = "conky -c ~/.conkyrc | nezd -xs 1 -dock -fn " <> myFont <> " -y '-1' -w '1000' -x -1000 -ta 'r' -fg '#FFFFFF' -bg '#000000'"
+myStatusBar Desktop = "conky -c ~/.conkyrc | nezd -xs 1 -dock -fn " <> myFont <> " -y '-1' -w '1740' -x -1740 -ta 'r' -fg '#FFFFFF' -bg '#000000'"
 
 data MachineType
   = Desktop
@@ -75,7 +75,7 @@ myConfig machineType leftBar =
             Desktop -> "gnome-terminal"
             Laptop  -> "gnome-terminal"
 
-myRestartCmd = "xmonad --recompile; killall dzen2; xmonad --restart; notify-send -t 500 'XMonad' '~/.xmonad/xmonad.hs reloaded'"
+myRestartCmd = "xmonad --recompile; killall nezd; xmonad --restart; notify-send -t 500 'XMonad' '~/.xmonad/xmonad.hs reloaded'"
 
 myWorkspaces :: [WorkspaceId]
 myWorkspaces = ["web", "term", "editor", "scratch", "steam", "signal", "work", "chat", "music"]
@@ -129,7 +129,7 @@ myStartup :: MachineType -> X ()
 myStartup machineType = do
   spawn "dunst"
   spawn "gnome-keyring-daemon --replace --daemonize --components=secrets,ssh,pcks11"
-  spawn "xrandr --output DP-4 --output DP-2 --primary --right-of DP-4 --auto"
+  spawn "xrandr --output DP-4 --primary --output DP-2 --left-of DP-4 --auto"
   spawn "feh --randomize --bg-fill ~/.wallpapers/*"
 
   case machineType of
